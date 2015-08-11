@@ -75,6 +75,7 @@ module Requirejs
         include
         inlineText
         locale
+        logLevel
         mainConfigFile
         map
         modules
@@ -93,6 +94,7 @@ module Requirejs
         pragmasOnSave
         preserveLicenseComments
         shim
+        skipDirOptimize
         skipModuleInsertion
         skipPragmas
         uglify
@@ -113,6 +115,7 @@ module Requirejs
         unless self.has_key?(:build_config)
           self[:build_config] = self.run_config.merge "baseUrl" => source_dir.to_s,
                                                       "modules" => [{'name' => 'application'}]
+          self[:build_config][:logLevel] ||= 0
           self[:build_config].merge!(self.user_config).slice!(*self.build_config_whitelist)
           case self.loader
             when :requirejs
